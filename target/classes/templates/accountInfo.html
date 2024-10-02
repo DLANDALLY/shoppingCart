@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Account Info</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+
+<th:block th:insert="~{/_menu}"></th:block>
+
+<div class="page-title">Account Info</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <ul>
+                <li>User Name:
+                    <ul>
+                        <li class="fs-3" th:text="${userDetails.getName()}"></li>
+                    </ul>
+                </li>
+                <li>Role:
+                    <ul>
+                        <li class="fs-3" th:each="auth : ${userDetails.authorities}" th:text="${auth.authority}"></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="position-relative">
+    <div class="position-absolute top-50 start-50 translate-middle">
+        <div class="">
+
+        </div>
+    </div>
+</div>
+
+<th:block th:insert="~{/_footer}"></th:block>
+
+<!-- Bootstrap JS -->
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+</body>
+</html>

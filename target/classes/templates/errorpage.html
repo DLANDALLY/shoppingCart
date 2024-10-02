@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Access Denied</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+
+<body>
+
+<th:block th:insert="~{/_menu}"></th:block>
+
+<div class="page-title">Access Denied!</div>
+<h3 style="color:red;" th:text="${message}"></h3>
+
+<th:block th:insert="~{/_footer}"></th:block>
+
+<!-- Bootstrap JS -->
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+</body>
+</html>

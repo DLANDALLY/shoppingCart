@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+<th:block th:insert="~{/_menu}"></th:block>
+
+<div class="container text-center">
+    <div class="row justify-content-center">
+        <div class="col-md-3">
+            <form th:action="@{/j_spring_security_check}" method="post">
+                <div class="mb-3">
+                    <label for="inputUsername" class="form-label">UserName</label>
+                    <input type="text"
+                           class="form-control"
+                           id="inputUsername"
+                           aria-describedby="emailHelp"
+                           name="username"
+                           required>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password"
+                           class="form-control"
+                           id="exampleInputPassword1"
+                           name="password"
+                           required>
+                </div>
+
+                <!-- Error message for login failure -->
+                <div th:if="${param.error}">
+                    <p style="color: red;">Invalid username or password!</p>
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+
+            <!-- Link to register or reset password -->
+            <p>
+                <a th:href="@{/admin/register}">Register</a> |
+                <a th:href="@{/admin/resetPassword}">Forgot password?</a>
+            </p>
+        </div>
+
+    </div>
+    <div style="text-align:left">
+        <h3>User/Password:</h3>
+        <ul>
+            <li>employee1/123</li>
+            <li>manager1/123</li>
+        </ul>
+    </div>
+
+</div>
+
+
+<th:block th:insert="~{/_footer}"></th:block>
+
+<!-- Bootstrap JS -->
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Enter Customer Information</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+
+<!-- Include Header and Menu -->
+<th:block th:insert="~{/_menu}"></th:block>
+
+<div class="page-title">Enter Customer Information</div>
+
+    <!-- Error Message -->
+<div>
+    <span th:if="${errorMessage!= null}" class="error-message" th:text="${errorMessage}"></span>
+</div>
+
+
+
+<div class="container">
+    <div class="row">
+        <form class="row g-3 needs-validation" method="POST" th:object="${customerForm}" th:action="@{/shoppingCartCustomer}" novalidate>
+            <!-- Name -->
+            <div class="col-md-4">
+                <label for="validationCustom01" class="form-label">Name *</label>
+                <input type="text" class="form-control" id="validationCustom01" th:field="*{name}" required>
+                <span class="error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">..</span>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <!-- Email -->
+            <div class="col-md-4">
+                <label for="validationCustom02" class="form-label">Email *</label>
+                <input type="email" class="form-control" id="validationCustom02" th:field="*{email}"  required>
+                <span class="error-message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">..</span>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <!-- Phone -->
+            <div class="col-md-4">
+                <label for="validationCustomUsername" class="form-label">Phone *</label>
+                <div class="input-group has-validation">
+                    <input type="tel" class="form-control" id="validationCustomUsername" th:field="*{phone}" required>
+                    <span class="error-message" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">..</span>
+                    <div class="invalid-feedback">
+                        Please choose a username.
+                    </div>
+                </div>
+            </div>
+            <!-- Address -->
+            <div class="col-md-10">
+                <label for="validationCustom03" class="form-label">Address *</label>
+                <input type="text" class="form-control" id="validationCustom03" th:field="*{address}" required>
+                <span class="error-message" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">..</span>
+                <div class="invalid-feedback">
+                    Please provide a valid address.
+                </div>
+            </div>
+
+            <div class="col-12">
+                <input type="submit" value="Submit" class="btn btn-outline-info" />
+                <input type="reset" value="Reset" class="btn btn-outline-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Include Footer -->
+<th:block th:insert="~{/_footer}"></th:block>
+
+<!-- Bootstrap JS -->
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Info</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+
+<th:block th:insert="~{/_menu}"></th:block>
+
+<div class="page-title">Order Info</div>
+
+<div class="customer-info-container">
+    <h3>Customer Information:</h3>
+    <ul>
+        <li>Name: <span th:text="${orderInfo.customerName}"></span></li>
+        <li>Email: <span th:text="${orderInfo.customerEmail}"></span></li>
+        <li>Phone: <span th:text="${orderInfo.customerPhone}"></span></li>
+        <li>Address: <span th:text="${orderInfo.customerAddress}"></span></li>
+    </ul>
+    <h3>Order Summary:</h3>
+    <ul>
+        <li>Total:
+            <span class="total" th:text="${#numbers.formatDecimal(orderInfo.amount, 3, 2, 'COMMA')}"></span>
+        </li>
+    </ul>
+</div>
+
+<br/>
+
+<table border="1" style="width:100%">
+    <thead>
+    <tr>
+        <th>Product Code</th>
+        <th>Product Name</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Amount</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="orderDetailInfo : ${orderInfo.details}">
+        <td th:text="${orderDetailInfo.productCode}"></td>
+        <td th:text="${orderDetailInfo.productName}"></td>
+        <td th:text="${orderDetailInfo.quantity}"></td> <!-- Correction: 'quanity' -->
+        <td th:text="${#numbers.formatDecimal(orderDetailInfo.price, 3, 2, 'COMMA')}"></td>
+        <td th:text="${#numbers.formatDecimal(orderDetailInfo.amount, 3, 2, 'COMMA')}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<th:block th:insert="~{/_footer}"></th:block>
+
+<!-- Bootstrap JS -->
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+
+<th:block th:insert="~{/_menu}"></th:block>
+
+<div class="page-title">My Cart</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6" >
+            <!-- Check if the cartForm or cartLines is null or empty-->
+            <th:block th:if="${cartForm == null || cartForm.cartLines == null || cartForm.cartLines.empty}">
+                <h2>There are no items in the cart</h2>
+                <a th:href="@{/productList}">Show Product List</a>
+            </th:block>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <!-- Display cart items if they exist -->
+            <th:block th:if="${cartForm != null && cartForm.cartLines != null && !cartForm.cartLines.empty}">
+                <form method="POST" th:object="${cartForm}" th:action="@{/shoppingCart}">
+
+                    <div class="productPreviewContainer"
+                         th:each="cartLineInfo, varStatus : ${cartForm.cartLines}">
+                        <ul>
+                            <li class="productImg">
+                                <img class="product-image"
+                                     th:src="@{|/productImage?code=${cartLineInfo.productInfo.code}|}" />
+                            </li>
+                            <li>Code: <span th:text="${cartLineInfo.productInfo.code}"></span>
+                                <input type="hidden"
+                                       th:name="|cartLines[${varStatus.index}].productInfo.code|"
+                                       th:value="${cartLineInfo.productInfo.code}" />
+                            </li>
+                            <li>Name: <span th:text="${cartLineInfo.productInfo.name}"></span></li>
+                            <li>Price:
+                                <span class="price"
+                                      th:text="${#numbers.formatDecimal(cartLineInfo.productInfo.price,3,2,'COMMA')}">
+                                </span>
+                            </li>
+                            <li>Quantity:
+                                <span>
+                                    <div th:if="${session.quantityFromSession != null}">
+                                    <input type="number" min="1"
+                                           th:name="${session.quantityFromSession}"
+                                           th:value="${session.quantityFromSession}" />
+                                    </div>
+
+                                    <div th:if="${session.quantityFromSession == null}">
+                                        <input type="number" min="1"
+                                               th:name="|cartLines[${varStatus.index}].quantity|"
+                                               th:value="${cartLineInfo.quantity}" />
+                                    </div>
+                                </span>
+                            </li>
+                            <li>Subtotal:
+                                <span class="subtotal"
+                                      th:text="${#numbers.formatDecimal(cartLineInfo.amount,3,2,'COMMA')}">
+                                </span>
+                            </li>
+                        </ul>
+                        <div style="clear: both"></div>
+                        <input class="btn btn-outline-primary" type="submit" value="Update" />
+                        <a class="btn btn-outline-info" th:href="@{/shoppingCartCustomer}">Next</a>
+                        <a class="btn btn-outline-secondary" th:href="@{/productList}">Return</a>
+                    </div>
+
+
+                </form>
+            </th:block>
+        </div>
+    </div>
+</div>
+
+<th:block th:insert="~{/_footer}"></th:block>
+
+<!-- Bootstrap JS -->
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<div class="menu-container"
+     xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #e3f2fd;">
+        <div class="container-fluid">
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarTogglerDemo03"
+                    aria-controls="navbarTogglerDemo03"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" th:href="@{/}">SHOP</a>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/productList}">Product List</a>
+                        <ion-icon name="log-in-outline"></ion-icon><!-- logout -->
+                        <i class="icofont-login"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/shoppingCart}">My cart</a>
+                        <i class="fa-solid fa-right-to-bracket"></i> <!-- login -->
+                    </li>
+                    <th:block sec:authorize="hasAnyRole('ROLE_MANAGER','ROLE_EMPLOYEE')">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/admin/orderList}">Order List</a>
+                        </li>
+                    </th:block>
+                    <th:block sec:authorize="hasRole('ROLE_MANAGER')">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/admin/product}">Create Product</a>
+                        </li>
+                    </th:block>
+                </ul>
+                <!-- login / logout -->
+                <ul class="nav justify-content-end">
+                    <th:block sec:authorize="!isAuthenticated()">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" th:href="@{/admin/login}">Login</a>
+                        </li>
+                    </th:block>
+                    <th:block sec:authorize="isAuthenticated()">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" th:href="@{/admin/logout}">Logout</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active"
+                               aria-current="page"
+                               th:href="@{/admin/accountInfo}"
+                               th:text="${session.username}">...</a>
+                        </li>
+                    </th:block>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</div>
+
